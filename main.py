@@ -108,9 +108,25 @@ tracer(t, P, r"Vérification : oscillation verticale ($\theta_0=0$, vitesses nul
 
 # mouvement pendulaire
 
-k = 10000.0
+k = 100000.0
 r_eq_grand = r0 + m*g/k
 Y0 = np.array([r_eq_grand, 0.3, 0.0, 0.0])
 t, Y = integrer(Y0, dt=0.0005, t_max=10.0)
 tracer(t, Y, "Vérification : k grand -> pendule simple", "fig_pendule.png")
 k = 17.8
+
+# Q4
+
+r_eq    = r0 + m*g/k
+omega_v = np.sqrt(k/m)
+omega_p = np.sqrt(g/r_eq)
+print(f"Longueur d'équilibre r_eq = {r_eq:.4f} m")
+print(f"omega_v = {omega_v:.3f} rad/s  (T = {2*np.pi/omega_v:.3f} s)")
+print(f"omega_p = {omega_p:.3f} rad/s  (T = {2*np.pi/omega_p:.3f} s)")
+print(f"Rapport omega_v / omega_p = {omega_v/omega_p:.3f}  (~ 2 -> resonance 2:1)")
+
+P_initial = np.array([0.66, 0.03, 0.0, 0.0])
+t, P = integrer(P_initial, dt=0.001, t_max=60.0)
+tracer(t, P,
+        "Résonance pendule élastique  (k=17,8 ; m=0,2 ; r0=0,44)",
+        "fig_resonance.png")
